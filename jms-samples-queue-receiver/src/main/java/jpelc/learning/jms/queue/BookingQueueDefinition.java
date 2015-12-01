@@ -1,4 +1,4 @@
-package jms.queue;
+package jpelc.learning.jms.queue;
 
 public class BookingQueueDefinition {
 

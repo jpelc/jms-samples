@@ -1,4 +1,4 @@
-package jms.queue;
+package jpelc.learning.jms.queue;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
