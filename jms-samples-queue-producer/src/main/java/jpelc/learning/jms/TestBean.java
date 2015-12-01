@@ -1,6 +1,7 @@
 package jpelc.learning.jms;
 
 import jpelc.learning.jms.queue.BookingQueueProducer;
+import jpelc.learning.jms.queue.Priority;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;
@@ -26,9 +27,10 @@ public class TestBean {
 
     @Schedule(hour = "*", minute = "*", second = "*/3", persistent = false)
     public void sendMessage() {
-        String msg = "New booking, ID = " + UUID.randomUUID().toString();
+        Priority priority = System.currentTimeMillis() % 2 == 0 ? Priority.HIGH : Priority.LOW;
+        String msg = "New booking, ID = " + UUID.randomUUID().toString() + "[" + priority + "]";
         logger.info("Sending msg: " + msg);
-        bookingQueueProducer.sendMessage(msg);
+        bookingQueueProducer.sendMessage(msg, priority);
     }
 
 }

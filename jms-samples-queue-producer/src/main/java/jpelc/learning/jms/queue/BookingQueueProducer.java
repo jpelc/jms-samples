@@ -15,8 +15,8 @@ public class BookingQueueProducer {
     @Resource(mappedName = BookingQueueDefinition.BOOKING_QUEUE)
     private Queue syncQueue;
 
-    public void sendMessage(String text) {
-        context.createProducer().send(syncQueue, text);
+    public void sendMessage(String text, Priority priority) {
+        context.createProducer().setProperty("priority", priority.toString()).send(syncQueue, text);
     }
 
 }

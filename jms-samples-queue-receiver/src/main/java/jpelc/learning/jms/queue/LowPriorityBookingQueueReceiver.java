@@ -7,13 +7,15 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import java.util.logging.Logger;
 
-@MessageDriven(name = "BookingQueueReceiver", activationConfig = {
+@MessageDriven(name = "LowPriorityBookingQueueReceiver", activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = BookingQueueDefinition.BOOKING_QUEUE),
-        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
-})
-public class BookingQueueReceiver implements MessageListener {
+        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+        @ActivationConfigProperty(propertyName = "messageSelector", propertyValue = "priority = 'LOW'")
 
-    private static final Logger logger = Logger.getLogger(BookingQueueReceiver.class.getName());
+})
+public class LowPriorityBookingQueueReceiver implements MessageListener {
+
+    private static final Logger logger = Logger.getLogger(LowPriorityBookingQueueReceiver.class.getName());
 
     @Override
     public void onMessage(Message message) {
